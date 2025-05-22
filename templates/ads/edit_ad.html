@@ -1,0 +1,22 @@
+<!-- ads/templates/ads/edit_ad.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование объявления</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Редактирование объявления</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">Сохранить</button>
+            </div>
+        </form>
+        <a href="{% url 'ad_list' %}" class="btn btn-secondary">Назад к списку</a>
+    </div>
+</body>
+</html>
