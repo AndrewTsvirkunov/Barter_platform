@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Ad, ExchangeProposal
-from .forms import AdForm, ExchangeProposalForm
+from .forms import AdForm
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from .serializers import AdSerializer, ExchangeProposalSerializer
@@ -44,7 +44,7 @@ def ad_list(request):
         ads = ads.filter(title__icontains=title_query) | ads.filter(description__icontains=title_query)
 
     # Пагинация
-    paginator = Paginator(ads, 5) #  5 объявлений на странице
+    paginator = Paginator(ads, 5)  # 5 объявлений на странице
     page = request.GET.get('page')
     ads = paginator.get_page(page)
 
@@ -61,15 +61,3 @@ class ExchangeProposalViewSet(viewsets.ModelViewSet):
     queryset = ExchangeProposal.objects.all()
     serializer_class = ExchangeProposalSerializer
     permission_classes = [IsAuthenticated]
-
-# def create_exchange_proposal(request):
-#     if request.method == "POST":
-#         form = ExchangeProposalForm(request.POST)
-#         if form.is_valid():
-#             proposal = form.save(commit=False)
-#             proposal.ad_sender = get_object_or_404(Ad, id=request.POST['ad_sender_id'])
-#             proposal.save()
-#             return redirect('ad_list')
-#     else:
-#         form = ExchangeProposalForm()
-#     return render(request, 'ads/create_exchange_proposal.html', {'form': form})
